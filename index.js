@@ -8,7 +8,7 @@ import leadRouter from "./routes/leadRouter.js";
 import emailRouter from "./routes/emailRouter.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
+// import path from "path";
 
 dotenv.config();
 
@@ -23,9 +23,9 @@ mongoose
 
 const app = express();
 
-const _dirname = path.dirname("");
-const buildpath = path.join(_dirname, "./client/build");
-app.use(express.static(buildpath));
+// const _dirname = path.dirname("");
+// const buildpath = path.join(_dirname, "./client/build");
+// app.use(express.static(buildpath));
 
 // Cors Error Resolve
 app.use(cors());
