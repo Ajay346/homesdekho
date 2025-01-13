@@ -31,16 +31,7 @@ const app = express();
 
 
 // Allow CORS for specific domain
-const corsOptions = {
-  origin: 'https://homesdekho.com',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Include cookies if needed
-};
-
-
-
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 
