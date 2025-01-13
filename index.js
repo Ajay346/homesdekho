@@ -28,7 +28,7 @@ const app = express();
 // app.use(express.static(buildpath));
 
 // Cors Error Resolve
-const cors = cors();
+
 
 // Allow CORS for specific domain
 const corsOptions = {
@@ -37,10 +37,10 @@ const corsOptions = {
   credentials: true, // Include cookies if needed
 };
 
+
+
+
 app.use(cors(corsOptions));
-
-
-// app.use(cors());
 
 app.use(express.json());
 
