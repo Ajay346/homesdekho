@@ -22,6 +22,14 @@ const listingSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    reraName: {
+      type: String,
+      required: true,
+    },
+    reraimageURLS: {
+      type: Array,
+      required: true,
+    },
     priceRange: {
       type: Array,
       required: true,
