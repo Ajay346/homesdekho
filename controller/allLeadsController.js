@@ -14,7 +14,7 @@ export const fecthLeads = async (req, res, next) => {
   }
 };
 
-// Update Follow Up
+// Update Follow Up controller
 
 export const updateFollowUp = async (req, res, next) => {
   try {
