@@ -258,3 +258,69 @@ export const getListingBySubregion = async (req, res, next) => {
     next(error);
   }
 };
+
+// get propeties by area
+
+export const getPropertyByArea = async (req, res, next) => {
+  try {
+    const area = req.params.area;
+    const property = await Listing.find({ subregion: area });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPropertyByDisplayOrder = async (req, res, next) => {
+  try {
+    const propertyIDs = req.body;
+    const selectedArea = propertyIDs.selectedArea;
+    const selectedProperties = propertyIDs.selectedProperties;
+    if (propertyIDs.selectedProperties.length !== 3) {
+      return next(errorHandler(400, "Please select exactly three properties."));
+    }
+
+    // Set displayOrder to false for all properties in the selected area
+    await Listing.updateMany(
+      { subregion: selectedArea },
+      { displayOrder: false }
+    );
+
+    // Update displayOrder to true for selected properties
+    await Listing.updateMany(
+      { _id: { $in: selectedProperties } },
+      { displayOrder: true }
+    );
+
+    res.status(200).json({ message: "Display order updated successfully." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get property by region name
+export const getListinaygByRegionForDisplay = async (req, res, next) => {
+  try {
+    const region = req.params.region;
+    const property = await Listing.find({ region: region, displayOrder: true });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    const groupedProperties = property.reduce((acc, item) => {
+      const subregion = item.subregion;
+      if (!acc[subregion]) {
+        acc[subregion] = [];
+      }
+      acc[subregion].push(item);
+      return acc;
+    }, {});
+
+    res.status(200).json(groupedProperties);
+  } catch (error) {
+    next(error);
+  }
+};

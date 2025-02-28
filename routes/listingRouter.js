@@ -10,6 +10,9 @@ import {
   getListingByRegion,
   getListingByDiscount,
   getListingBySubregion,
+  getPropertyByArea,
+  getPropertyByDisplayOrder,
+  getListinaygByRegionForDisplay,
 } from "../controller/listingController.js";
 
 const router = express.Router();
@@ -23,6 +26,9 @@ router.post("/search", getSearchProperty);
 router.get("/propertydevloper/:devname", getListingByDevName);
 router.get("/propertysubregion/:subregionname", getListingBySubregion);
 router.get("/regionproperty/:region", getListingByRegion);
+router.get("/regionpropertyfordisplay/:region", getListinaygByRegionForDisplay);
 router.get("/discountedproperty", getListingByDiscount);
+router.get("/properties/:area", getPropertyByArea);
+router.post("/displayorder", getPropertyByDisplayOrder);
 
 export default router;

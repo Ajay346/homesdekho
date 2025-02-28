@@ -46,6 +46,10 @@ const listingSchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    amenities: {
+      type: Array,
+      required: true,
+    },
     possessiondate: {
       type: String,
       required: true,
@@ -74,6 +78,9 @@ const listingSchema = new mongoose.Schema(
     discountedDeal: {
       type: Boolean,
       required: true,
+    },
+    displayOrder: {
+      type: Boolean,
     },
     userRef: {
       type: String,
