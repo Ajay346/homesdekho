@@ -15,6 +15,8 @@ import {
   getListinaygByRegionForDisplay,
 } from "../controller/listingController.js";
 
+import { getSearchPropertyPune } from "../controller/puneListingController.js";
+
 const router = express.Router();
 
 router.post("/create", createListing);
@@ -23,6 +25,7 @@ router.post("/update/:id", updateListing);
 router.get("/get/:id", getListing);
 router.get("/propertyname/:slugname", getListingBySlug);
 router.post("/search", getSearchProperty);
+router.post("/punesearch", getSearchPropertyPune);
 router.get("/propertydevloper/:devname", getListingByDevName);
 router.get("/propertysubregion/:subregionname", getListingBySubregion);
 router.get("/regionproperty/:region", getListingByRegion);
