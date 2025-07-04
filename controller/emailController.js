@@ -36,6 +36,7 @@ export const emailGenerator = async (req, res) => {
   const mailOptions = {
     from: "testtgcms@gmail.com",
     to: "homesdekho5@gmail.com",
+    cc: ["yogesh.lala@regnum.in", "deepti.k@regnum.in"],
     subject,
     template: "email", // Name of the Handlebars template
     context: {
