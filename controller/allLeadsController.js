@@ -1,4 +1,5 @@
 import Leads from "../models/emailModal.js";
+import User from "../models/userModel.js";
 import { errorHandler } from "./../utils/error.js";
 
 export const fecthLeads = async (req, res, next) => {
