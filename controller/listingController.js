@@ -98,6 +98,7 @@ export const getSearchProperty = async (req, res, next) => {
     const searchProperties = await Listing.aggregate([
       {
         $match: {
+          location: { $ne: "pune" }, // Exclude properties with location "pune"
           $or: [
             { name: { $regex: req.body.name, $options: "i" } },
             { address: { $regex: req.body.name, $options: "i" } },
