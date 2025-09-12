@@ -218,7 +218,10 @@ export const getListingByRegion = async (req, res, next) => {
 
 export const getListingByDiscount = async (req, res, next) => {
   try {
-    const property = await Listing.find().where("discountedDeal").equals(true);
+    const property = await Listing.find({
+      discountedDeal: true,
+      $or: [{ location: "" }, { location: "mumbai" }],
+    });
     if (property.length === 0) {
       return next(errorHandler(404, "Property not found!"));
     }

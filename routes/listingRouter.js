@@ -16,13 +16,23 @@ import {
 } from "../controller/listingController.js";
 
 import { getSearchPropertyPune } from "../controller/puneListingController.js";
+import {
+  createPlotListing,
+  deletePLot,
+  getPLots,
+  updatePlot,
+} from "../controller/plotController.js";
 
 const router = express.Router();
 
 router.post("/create", createListing);
+router.post("/plotcreate", createPlotListing);
 router.delete("/delete/:id", deleteListing);
+router.delete("/deleteplot/:id", deletePLot);
 router.post("/update/:id", updateListing);
+router.post("/updateplot/:id", updatePlot);
 router.get("/get/:id", getListing);
+router.get("/getplots/:id", getPLots);
 router.get("/propertyname/:slugname", getListingBySlug);
 router.post("/search", getSearchProperty);
 router.post("/punesearch", getSearchPropertyPune);

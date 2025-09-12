@@ -81,3 +81,19 @@ export const getSearchPropertyPune = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getListingByDiscount = async (req, res, next) => {
+  try {
+    const property = await Listing.find({
+      discountedDeal: true,
+      $or: [{ location: "pune" }],
+    });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};

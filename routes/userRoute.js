@@ -8,6 +8,7 @@ import {
   updatePassword,
 } from "../controller/userController.js";
 import { verifyToken } from "../utils/verifyUser.js";
+import { getAllPlots } from "../controller/plotController.js";
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.post("/updatepassword", updatePassword);
 router.delete("/delete/:id", deleteUSer);
 
 router.get("/properties/:id", getAllProperties);
+router.get("/plots/:id", getAllPlots);
 
 export default router;

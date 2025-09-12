@@ -66,10 +66,7 @@ const plotSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    subregion: {
-      type: String,
-      required: true,
-    },
+
     location: {
       type: String,
       required: true,
