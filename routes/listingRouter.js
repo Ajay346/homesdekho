@@ -15,7 +15,10 @@ import {
   getListinaygByRegionForDisplay,
 } from "../controller/listingController.js";
 
-import { getSearchPropertyPune } from "../controller/puneListingController.js";
+import {
+  getSearchPropertyPune,
+  getListingByDiscountPune,
+} from "../controller/puneListingController.js";
 import {
   createPlotListing,
   deletePLot,
@@ -41,6 +44,7 @@ router.get("/propertysubregion/:subregionname", getListingBySubregion);
 router.get("/regionproperty/:region", getListingByRegion);
 router.get("/regionpropertyfordisplay/:region", getListinaygByRegionForDisplay);
 router.get("/discountedproperty", getListingByDiscount);
+router.get("/punediscountedproperty", getListingByDiscountPune);
 router.get("/properties/:area", getPropertyByArea);
 router.post("/displayorder", getPropertyByDisplayOrder);
 

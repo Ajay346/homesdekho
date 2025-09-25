@@ -6,6 +6,7 @@ import authRouter from "./routes/authRoute.js";
 import listingRouter from "./routes/listingRouter.js";
 import leadRouter from "./routes/leadRouter.js";
 import emailRouter from "./routes/emailRouter.js";
+import plotRouter from "./routes/plotRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -43,6 +44,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 app.use("/api/emailsend", emailRouter);
 app.use("/api/leaddata", leadRouter);
+app.use("/api/plot", plotRouter);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

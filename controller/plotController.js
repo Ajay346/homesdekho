@@ -86,3 +86,18 @@ export const getAllPlots = async (req, res, next) => {
     next(error);
   }
 };
+
+// get search property
+
+export const getSearchPlot = async (req, res, next) => {
+  try {
+    const plot = await Plot.find({
+      name: { $regex: req.body.name, $options: "i" },
+      location: req.body.location,
+    });
+
+    res.status(200).json(plot);
+  } catch (error) {
+    next(error);
+  }
+};

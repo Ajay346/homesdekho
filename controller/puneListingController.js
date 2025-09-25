@@ -82,7 +82,7 @@ export const getSearchPropertyPune = async (req, res, next) => {
   }
 };
 
-export const getListingByDiscount = async (req, res, next) => {
+export const getListingByDiscountPune = async (req, res, next) => {
   try {
     const property = await Listing.find({
       discountedDeal: true,
