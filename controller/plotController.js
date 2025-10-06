@@ -101,3 +101,50 @@ export const getSearchPlot = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPlotsByArea = async (req, res, next) => {
+  try {
+    const area = req.params.region;
+    const property = await Plot.find({ region: area })
+      .limit(3)
+      .sort({ createdAt: -1 });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get property by slug name
+
+export const getPlotsBySlug = async (req, res, next) => {
+  try {
+    const slug = req.params.slugname;
+    const property = await Plot.findOne({ slug });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Discounted Deals
+export const getPlotsByDiscount = async (req, res, next) => {
+  try {
+    const property = await Plot.find({
+      discountedDeal: true,
+    });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
