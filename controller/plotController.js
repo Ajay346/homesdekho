@@ -148,3 +148,13 @@ export const getPlotsByDiscount = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllPlotsLocation = async (req, res, next) => {
+  try {
+    const plots = await Plot.find().sort({ createdAt: -1 });
+
+    res.status(200).json(plots);
+  } catch (error) {
+    next(error);
+  }
+};
