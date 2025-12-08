@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_LEAD || "testtgcms@gmail.com", // Replace with your email
-    pass: process.env.PASSAPP || "robjkwwvetxhxsts", // Replace with your app password
+    pass: process.env.PASSAPP || "ehcratwwkityywsb", // Replace with your app password
   },
 });
 
@@ -42,10 +42,10 @@ export const emailGenerator = async (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL_LEAD || "testtgcms@gmail.com",
-    to: "shindeajay9665@gmail.com",
-    // to: "homesdekho5@gmail.com",
-    // cc: ["yogesh.lala@regnum.in", "deepti.k@regnum.in"],
-    cc: ["shindeajay346@gmail.com"],
+
+    to: "homesdekho5@gmail.com",
+    cc: ["yogesh.lala@regnum.in", "deepti.k@regnum.in"],
+
     subject,
     template: "email", // Name of the Handlebars template
     context: {
@@ -57,20 +57,21 @@ export const emailGenerator = async (req, res) => {
   try {
     const lead = new Leads({ email, subject, name, mobile, status: "Sent" });
     await lead.save();
-    res.status(200).json({ success: true, mobile: "Email sent successfully!" });
   } catch (error) {
     res.status(500).json({ success: false, error: error.mobile });
   }
 
-  // try {
-  //   console.log("Sending email with options:", { to: mailOptions.to, subject });
-  //   const info = await transporter.sendMail(mailOptions);
-  //   console.log("Email sent:", info);
-  //   const lead = new Leads({ email, subject, name, mobile, status: "Sent" });
-  //   await lead.save();
+  try {
+    // console.log("Sending email with options:", { to: mailOptions.to, subject });
+    const info = await transporter.sendMail(mailOptions);
+    // console.log("Email sent:", info);
+    // const lead = new Leads({ email, subject, name, mobile, status: "Sent" });
+    // await lead.save();
 
-  //   res.status(200).json({ success: true, mobile: "Email sent successfully!" });
-  // } catch (error) {
-  //   res.status(500).json({ success: false, error: error.mobile });
-  // }
+    res
+      .status(200)
+      .json({ success: true, mobile: "Email sent successfully!", info });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.mobile });
+  }
 };
