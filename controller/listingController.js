@@ -328,3 +328,29 @@ export const getListinaygByRegionForDisplay = async (req, res, next) => {
     next(error);
   }
 };
+export const getCommercialByRegionForDisplay = async (req, res, next) => {
+  try {
+    const region = req.params.region;
+    const property = await Listing.find({
+      region: region,
+      // displayOrder: false,
+      propertytype: "commercial",
+    });
+    if (property.length === 0) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    const groupedProperties = property.reduce((acc, item) => {
+      const subregion = item.subregion;
+      if (!acc[subregion]) {
+        acc[subregion] = [];
+      }
+      acc[subregion].push(item);
+      return acc;
+    }, {});
+
+    res.status(200).json(groupedProperties);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -151,9 +151,28 @@ export const getPlotsByDiscount = async (req, res, next) => {
 
 export const getAllPlotsLocation = async (req, res, next) => {
   try {
-    const plots = await Plot.find().sort({ createdAt: -1 });
+    const subregionname = req.params.subregionname;
+    const { skip = 0, limit = 10 } = req.query; // Default skip=0, limit=10
 
-    res.status(200).json(plots);
+    const skipNumber = Number(skip);
+    const limitNumber = Number(limit);
+
+    const property = await Plot.find({
+      region: { $regex: new RegExp(subregionname, "i") },
+    })
+      .skip(skipNumber) // Skip documents for pagination
+      .limit(limitNumber) // Limit the number of documents
+      .exec();
+
+    const total = await Plot.countDocuments({
+      region: { $regex: new RegExp(subregionname, "i") },
+    });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    res.status(200).json(property);
   } catch (error) {
     next(error);
   }

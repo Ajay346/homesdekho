@@ -14,6 +14,6 @@ router.post("/search", getSearchPlot);
 router.get("/getplotsbyarea/:region", getPlotsByArea);
 router.get("/plotname/:slugname", getPlotsBySlug);
 router.get("/discountedproperty", getPlotsByDiscount);
-router.get("/allplots", getAllPlotsLocation);
+router.get("/allplots/:subregionname", getAllPlotsLocation);
 
 export default router;

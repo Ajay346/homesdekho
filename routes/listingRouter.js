@@ -13,6 +13,7 @@ import {
   getPropertyByArea,
   getPropertyByDisplayOrder,
   getListinaygByRegionForDisplay,
+  getCommercialByRegionForDisplay,
 } from "../controller/listingController.js";
 
 import {
@@ -43,6 +44,10 @@ router.get("/propertydevloper/:devname", getListingByDevName);
 router.get("/propertysubregion/:subregionname", getListingBySubregion);
 router.get("/regionproperty/:region", getListingByRegion);
 router.get("/regionpropertyfordisplay/:region", getListinaygByRegionForDisplay);
+router.get(
+  "/regioncommercialfordisplay/:region",
+  getCommercialByRegionForDisplay
+);
 router.get("/discountedproperty", getListingByDiscount);
 router.get("/punediscountedproperty", getListingByDiscountPune);
 router.get("/properties/:area", getPropertyByArea);
