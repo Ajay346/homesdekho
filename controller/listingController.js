@@ -75,12 +75,36 @@ export const getListing = async (req, res, next) => {
   }
 };
 
-// get property by slug name
+// get property by slug name Mumbai
 
 export const getListingBySlug = async (req, res, next) => {
   try {
     const slug = req.params.slugname;
-    const property = await Listing.findOne({ slug });
+    const property = await Listing.findOne({
+      slug: slug,
+      $or: [
+        { location: "mumbai" },
+        { location: "" },
+        { location: { $exists: false } },
+      ],
+    });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+// get property by slug name Pune
+export const getListingPuneBySlug = async (req, res, next) => {
+  try {
+    const slug = req.params.slugname;
+    const property = await Listing.findOne({
+      slug: slug,
+      $or: [{ location: "pune" }],
+    });
 
     if (!property) {
       return next(errorHandler(404, "Property not found!"));
