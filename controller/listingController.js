@@ -286,6 +286,38 @@ export const getListingBySubregion = async (req, res, next) => {
     next(error);
   }
 };
+// get property by Subregion Area
+
+export const getCommercialListingBySubregion = async (req, res, next) => {
+  try {
+    const subregionname = req.params.subregionname;
+    const { skip = 0, limit = 10 } = req.query; // Default skip=0, limit=10
+
+    const skipNumber = Number(skip);
+    const limitNumber = Number(limit);
+
+    const property = await Listing.find({
+      subregion: { $regex: new RegExp(subregionname, "i") },
+    })
+      .where("propertytype")
+      .equals("commercial")
+      .skip(skipNumber) // Skip documents for pagination
+      .limit(limitNumber) // Limit the number of documents
+      .exec();
+
+    const total = await Listing.countDocuments({
+      subregion: { $regex: new RegExp(subregionname, "i") },
+    });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // get propeties by area
 
