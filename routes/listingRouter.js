@@ -16,6 +16,7 @@ import {
   getCommercialByRegionForDisplay,
   getListingPuneBySlug,
   getCommercialListingBySubregion,
+  getCommercialListingBySlug,
 } from "../controller/listingController.js";
 
 import {
@@ -40,6 +41,7 @@ router.post("/updateplot/:id", updatePlot);
 router.get("/get/:id", getListing);
 router.get("/getplots/:id", getPLots);
 router.get("/propertyname/:slugname", getListingBySlug);
+router.get("/commercialpropertyname/:slugname", getCommercialListingBySlug);
 router.get("/propertynamepune/:slugname", getListingPuneBySlug);
 router.post("/search", getSearchProperty);
 router.post("/punesearch", getSearchPropertyPune);

@@ -87,6 +87,25 @@ export const getListingBySlug = async (req, res, next) => {
         { location: "" },
         { location: { $exists: false } },
       ],
+      propertytype: { $ne: "commercial" },
+    });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+// get commercial property by slug name Mumbai
+
+export const getCommercialListingBySlug = async (req, res, next) => {
+  try {
+    const slug = req.params.slugname;
+    const property = await Listing.findOne({
+      slug: slug,
+      propertytype: "commercial",
     });
 
     if (!property) {
