@@ -280,28 +280,48 @@ export const getListingByDiscount = async (req, res, next) => {
 export const getListingBySubregion = async (req, res, next) => {
   try {
     const subregionname = req.params.subregionname;
-    const { skip = 0, limit = 10 } = req.query; // Default skip=0, limit=10
+    const { skip = 0, limit = 10, possessiondate, bhk, pricerange } = req.query;
 
     const skipNumber = Number(skip);
     const limitNumber = Number(limit);
 
-    const property = await Listing.find({
+    // Build filter object
+    let filter = {
       subregion: { $regex: new RegExp(subregionname, "i") },
-    })
+    };
+
+    // Add possession date filter if provided
+    if (possessiondate && possessiondate.trim() !== "") {
+      filter.possessiondate = { $regex: new RegExp(possessiondate, "i") };
+    }
+
+    // Add BHK filter if provided
+    if (bhk && bhk.trim() !== "") {
+      filter.BHK = { $in: [bhk] };
+    }
+
+    // Add price range filter if provided
+    if (pricerange && pricerange.trim() !== "") {
+      filter.priceRange = { $regex: new RegExp(pricerange, "i") };
+    }
+
+    // console.log("Filter applied:", filter);
+
+    const property = await Listing.find(filter)
       .skip(skipNumber) // Skip documents for pagination
       .limit(limitNumber) // Limit the number of documents
       .exec();
 
-    const total = await Listing.countDocuments({
-      subregion: { $regex: new RegExp(subregionname, "i") },
-    });
+    const total = await Listing.countDocuments(filter);
 
-    if (!property) {
+    // Check if no properties found
+    if (!property || property.length === 0) {
       return next(errorHandler(404, "Property not found!"));
     }
 
     res.status(200).json(property);
   } catch (error) {
+    console.error("Error in getListingBySubregion:", error);
     next(error);
   }
 };
