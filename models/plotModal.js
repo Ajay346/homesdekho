@@ -24,11 +24,9 @@ const plotSchema = new mongoose.Schema(
     },
     reraName: {
       type: String,
-      required: true,
     },
     reraimageURLS: {
       type: Array,
-      required: true,
     },
     priceRange: {
       type: Array,
@@ -88,7 +86,7 @@ const plotSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Plot = mongoose.model("Plot", plotSchema);
