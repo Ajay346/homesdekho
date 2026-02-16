@@ -50,7 +50,7 @@ export const updateListing = async (req, res, next) => {
     const updatedProperty = await Listing.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true }
+      { new: true },
     );
 
     res.status(200).json(updatedProperty);
@@ -385,13 +385,13 @@ export const getPropertyByDisplayOrder = async (req, res, next) => {
     // Set displayOrder to false for all properties in the selected area
     await Listing.updateMany(
       { subregion: selectedArea },
-      { displayOrder: false }
+      { displayOrder: false },
     );
 
     // Update displayOrder to true for selected properties
     await Listing.updateMany(
       { _id: { $in: selectedProperties } },
-      { displayOrder: true }
+      { displayOrder: true },
     );
 
     res.status(200).json({ message: "Display order updated successfully." });
