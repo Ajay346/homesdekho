@@ -177,3 +177,33 @@ export const getAllPlotsLocation = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAllDeveloperPlots = async (req, res, next) => {
+  try {
+    const devName = req.params.devname;
+
+    const { skip = 0, limit = 10 } = req.query; // Default skip=0, limit=10
+
+    const skipNumber = Number(skip);
+    const limitNumber = Number(limit);
+
+    const property = await Plot.find({
+      devlopername: { $regex: new RegExp(devName, "i") },
+    })
+      .skip(skipNumber) // Skip documents for pagination
+      .limit(limitNumber) // Limit the number of documents
+      .exec();
+
+    const total = await Plot.countDocuments({
+      devlopername: { $regex: new RegExp(devName, "i") },
+    });
+
+    if (!property) {
+      return next(errorHandler(404, "Property not found!"));
+    }
+
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
