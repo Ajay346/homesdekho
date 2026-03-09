@@ -17,6 +17,7 @@ import {
   getListingPuneBySlug,
   getCommercialListingBySubregion,
   getCommercialListingBySlug,
+  getCompareProperty,
 } from "../controller/listingController.js";
 
 import {
@@ -44,18 +45,19 @@ router.get("/propertyname/:slugname", getListingBySlug);
 router.get("/commercialpropertyname/:slugname", getCommercialListingBySlug);
 router.get("/propertynamepune/:slugname", getListingPuneBySlug);
 router.post("/search", getSearchProperty);
+router.post("/compare", getCompareProperty);
 router.post("/punesearch", getSearchPropertyPune);
 router.get("/propertydevloper/:devname", getListingByDevName);
 router.get("/propertysubregion/:subregionname", getListingBySubregion);
 router.get(
   "/commercialpropertysubregion/:subregionname",
-  getCommercialListingBySubregion
+  getCommercialListingBySubregion,
 );
 router.get("/regionproperty/:region", getListingByRegion);
 router.get("/regionpropertyfordisplay/:region", getListinaygByRegionForDisplay);
 router.get(
   "/regioncommercialfordisplay/:region",
-  getCommercialByRegionForDisplay
+  getCommercialByRegionForDisplay,
 );
 router.get("/discountedproperty", getListingByDiscount);
 router.get("/punediscountedproperty", getListingByDiscountPune);

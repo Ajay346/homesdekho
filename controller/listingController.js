@@ -449,3 +449,68 @@ export const getCommercialByRegionForDisplay = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getCompareProperty = async (req, res, next) => {
+  try {
+    const searchProperties = await Listing.aggregate([
+      {
+        $match: {
+          $or: [
+            { name: { $regex: req.body.name, $options: "i" } },
+            { address: { $regex: req.body.name, $options: "i" } },
+            { devlopername: { $regex: req.body.name, $options: "i" } },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: {
+            name: "$name",
+            address: "$address",
+            devlopername: "$devlopername",
+          }, // Group by name, address, and devlopername to ensure uniqueness
+          doc: { $first: "$$ROOT" }, // Keep the first document for each unique group
+        },
+      },
+      {
+        $replaceRoot: { newRoot: "$doc" }, // Flatten the structure
+      },
+      {
+        $addFields: {
+          matchedField: {
+            $cond: {
+              if: {
+                $regexMatch: {
+                  input: "$name",
+                  regex: req.body.name,
+                  options: "i",
+                },
+              },
+              then: "name",
+              else: {
+                $cond: {
+                  if: {
+                    $regexMatch: {
+                      input: "$address",
+                      regex: req.body.name,
+                      options: "i",
+                    },
+                  },
+                  then: "address",
+                  else: "devlopername",
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        $limit: 10, // Limit to 10 unique results
+      },
+    ]);
+
+    res.status(200).json(searchProperties);
+  } catch (error) {
+    next(error);
+  }
+};
