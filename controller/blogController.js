@@ -33,3 +33,14 @@ export const showAllBlogs = async (req, res, next) => {
     next(error);
   }
 };
+
+export const showCategoryBlog = async (req, res, next) => {
+  try {
+    const blogs = await Blog.find({ category: req.params.category }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(blogs);
+  } catch (error) {
+    next(error);
+  }
+};
