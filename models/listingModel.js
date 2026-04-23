@@ -58,6 +58,9 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    extraDetails: {
+      type: String,
+    },
     aboutdevloper: {
       type: String,
       required: true,
@@ -95,7 +98,7 @@ const listingSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Listing = mongoose.model("Listing", listingSchema);
