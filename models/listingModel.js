@@ -97,6 +97,10 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    projectPageManaged: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

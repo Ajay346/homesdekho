@@ -65,7 +65,7 @@ export const updateUser = async (req, res, next) => {
           password: req.body.password,
         },
       },
-      { new: true }
+      { new: true },
     );
 
     const { password, ...rest } = updatedUser._doc;
@@ -117,12 +117,14 @@ export const getAllProperties = async (req, res, next) => {
     let listings;
     if (req.params.id === "672873216d6bedd7141bf7a2") {
       // Fetch all properties
-      listings = await Listing.find().sort({ createdAt: -1 });
+      listings = await Listing.find()
+        .select("_id name")
+        .sort({ createdAt: -1 });
     } else {
       // Fetch properties for the specific user
-      listings = await Listing.find({ userRef: req.params.id }).sort({
-        createdAt: -1,
-      });
+      listings = await Listing.find({ userRef: req.params.id })
+        .select("_id name")
+        .sort({ createdAt: -1 });
     }
 
     if (!listings || listings.length === 0) {

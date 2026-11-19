@@ -9,6 +9,7 @@ import emailRouter from "./routes/emailRouter.js";
 import plotRouter from "./routes/plotRoute.js";
 import seoRouter from "./routes/seoRoute.js";
 import blogRouter from "./routes/blogRoute.js";
+import projectRouter from "./routes/projectRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
@@ -49,6 +50,7 @@ app.use("/api/leaddata", leadRouter);
 app.use("/api/seodata", seoRouter);
 app.use("/api/plot", plotRouter);
 app.use("/api/blog", blogRouter);
+app.use("/api/projects", projectRouter);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
