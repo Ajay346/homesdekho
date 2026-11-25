@@ -1,5 +1,6 @@
 import { errorHandler } from "./error.js";
 import JWT from "jsonwebtoken";
+import User from "../models/userModel.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.cookies?.access_token;
@@ -12,4 +13,16 @@ export const verifyToken = (req, res, next) => {
     req.user = user;
     next();
   });
+};
+
+export const verifyAdmin = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id).select("role");
+    if (!user || user.role !== "Admin") {
+      return next(errorHandler(403, "Forbidden"));
+    }
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 };

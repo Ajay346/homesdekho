@@ -80,7 +80,7 @@ export const emailGenerator = async (req, res) => {
 // controller functon to send an email for single page
 
 export const emailsingleGenerator = async (req, res) => {
-  const { email, subject, name, mobile } = req.body;
+  const { email, subject, projectName, name, mobile } = req.body;
   // const newSubject = "Homes Dekho " + subject;
   // Email options
 
@@ -96,10 +96,18 @@ export const emailsingleGenerator = async (req, res) => {
       name,
       email,
       mobile,
+      projectName,
     },
   };
   try {
-    const lead = new SEOLeads({ email, subject, name, mobile, status: "Sent" });
+    const lead = new SEOLeads({
+      email,
+      subject,
+      projectName,
+      name,
+      mobile,
+      status: "Sent",
+    });
     await lead.save();
   } catch (error) {
     res.status(500).json({ success: false, error: error.mobile });
